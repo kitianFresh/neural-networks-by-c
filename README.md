@@ -75,14 +75,15 @@ gcc -o mnist -I../include mnist.c ../src/nn.c ../src/mnist_reader.c ../src/matri
 
 ## 一个单隐层神经网络模拟加法器(回归模型)
 
-### 模拟加法器
+## 模拟加法器
 模拟两位 0~10 之间的双精度浮点数的加法器. 不使用第三方深度学习库, 本实验我采用的是标准C语言, 不使用任何第三方库!
 
 ### 网络模型
 本实验采用的是单隐层神经网络模型! 如下图1所示:
 
-<center>![nn](../resources/nn.png)</center>
-<center>图1.</center>
+![nn](../resources/nn.png)
+
+图1.
 
 模型公式:
 
@@ -201,24 +202,31 @@ double fit(double (*datas)[2], double *labels, int train_size) {
 ### 参数调整
 重要的超参数就是学习率A, 然后还有 EPOCH. 我们设置 10000 个训练样列, A=0.001, EPOCH=100, 训练时的RMSE变化结果如下图2, 图3:
 
-<center>![迭代1](../resources/迭代1.png)</center>
-<center>图2.</center>
+![迭代1](../resources/迭代1.png)
 
-<center>![迭代2](../resources/迭代2.png)</center>
-<center>图3.</center>
+图2.
+
+![迭代2](../resources/迭代2.png)
+
+图3.
+
 从结果可以看出, 学习率较小的时候, 学习速度还是比较慢的, RMSE 减小的比较慢, 因此为防止还没达到最优点就停止学习, EPOCH可以设置大一些, 即 A小, EPOCH就大.
 
 再来看看我们将学习率A设置为A=0.005, 有什么变化:
 
-<center>![迭代3](../resources/迭代3.png)</center>
-<center>图4.</center>
+![迭代3](../resources/迭代3.png)
 
-<center>![迭代4](../resources/迭代4.png)</center>
-<center>图5.</center>
+图4.
+
+![迭代4](../resources/迭代4.png)
+
+图5.
+
 从前几次的EPOCH来看, 学习还是很快的, 很快就到达最优点, 然后就开始在最优点附近徘徊了. **因此我们总结的经验就是, A与EPOCH 可以适当的成反相关设置, A大,EPOCH小,因为学习很快能到达最优点; A小, EPOCH大, 因为学习慢,需要多次迭代以免没有到达最优点. 但这个不是绝对的, A也不能太大,比如 A=0.1, 学习起来就非常没有规律, 一直在来回振荡一样. RMSE变化无常.**
 
-<center>![迭代5](../resources/迭代5.png)</center>
-<center>图6.</center>
+![迭代5](../resources/迭代5.png)
+
+图6.
 
 ### 注意点
 我们需要对输入数据做归一化处理, 这样学习样本就是在同一个空间下.
